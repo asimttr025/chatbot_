@@ -1,34 +1,28 @@
+import 'package:chatbot/Login_screen/login_screen.dart';
+//import 'package:chatbot_project/LoginScreen/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
+import 'constants.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: darkBlue,
-      ),
+      title: 'ChatBot',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: MyWidget(),
-        ),
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: bgColor,
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+            .apply(bodyColor: Colors.white),
+        canvasColor: secondaryColor,
       ),
-    );
-  }
-}
-
-class MyWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'Hello, World!',
-      style: Theme.of(context).textTheme.headline4,
+      home: LoginScreen(),
     );
   }
 }
