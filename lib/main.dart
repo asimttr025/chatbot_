@@ -1,12 +1,22 @@
 import 'package:chatbot/Login_screen/login_screen.dart';
+import 'package:chatbot/models/chat_model.dart';
 //import 'package:chatbot_project/LoginScreen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:provider/provider.dart';
 import 'constants.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ChatModel(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
