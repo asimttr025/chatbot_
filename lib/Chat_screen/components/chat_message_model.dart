@@ -8,13 +8,6 @@ class ChatMessage {
   });
 }
 
-List chatMessages = [
-  ChatMessage(text: "Hello, How are you?", isSender: false),
-  ChatMessage(text: "Good,Thanks! you?", isSender: true),
-  ChatMessage(text: "Fine fineee", isSender: false),
-  ChatMessage(text: "coo coo cooolcocol", isSender: true),
-];
-
 void printList(List<dynamic> list) {
   String sender;
   for (int i = 0; i < list.length; i++) {

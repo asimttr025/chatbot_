@@ -2,8 +2,10 @@ import 'package:chatbot/Chat_screen/components/chat_message_model.dart';
 import 'package:chatbot/Chat_screen/components/input_field.dart';
 import 'package:chatbot/Chat_screen/components/message.dart';
 import 'package:chatbot/constants.dart';
+import 'package:chatbot/models/chat_model.dart';
 import 'package:chatbot/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -43,6 +45,7 @@ class _CardViewState extends State<CardView> {
 
   @override
   Widget build(BuildContext context) {
+    var chat = context.watch<ChatModel>();
     return Card(
       color: Colors.green.shade300,
       elevation: 5,
@@ -55,11 +58,12 @@ class _CardViewState extends State<CardView> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
                 child: ListView.builder(
-                  itemCount: chatMessages.length,
-                  itemBuilder: (context, index) => Message(
-                    message: chatMessages[index],
-                  ),
-                ),
+                    itemCount: chat.getAllMessages.length,
+                    itemBuilder: (context, index) {
+                      return Message(
+                        message: chat.getAllMessages[index],
+                      );
+                    }),
               ),
             ),
             InputField()

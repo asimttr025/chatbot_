@@ -1,6 +1,8 @@
 import 'package:chatbot/Chat_screen/components/chat_message_model.dart';
 import 'package:chatbot/constants.dart';
+import 'package:chatbot/models/chat_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 class InputField extends StatefulWidget {
   const InputField({
@@ -16,6 +18,8 @@ class _InputFieldState extends State<InputField> {
 
   @override
   Widget build(BuildContext context) {
+    var chat = context.read<ChatModel>();
+
     return Container(
       margin: EdgeInsets.all(15),
       height: 60,
@@ -31,9 +35,8 @@ class _InputFieldState extends State<InputField> {
           suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
-                  chatMessages
-                      .add(ChatMessage(text: _controller.text, isSender: true));
-                  printList(chatMessages);
+                  chat.addMessagesToChat(
+                      ChatMessage(text: _controller.text, isSender: true));
 
                   _controller.clear();
                 });
