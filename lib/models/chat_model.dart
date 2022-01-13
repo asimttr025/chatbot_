@@ -1,16 +1,42 @@
 import 'dart:collection';
-
+import 'dart:convert';
+import 'dart:io';
 import 'package:chatbot/Chat_screen/components/chat_message_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 class ChatModel extends ChangeNotifier {
   /// Internal, private state of the cart.
   List<ChatMessage> _chatMessages = [
-    ChatMessage(text: "Hello, How are you?", isSender: false),
-    ChatMessage(text: "Good,Thanks! you?", isSender: true),
-    ChatMessage(text: "Fine fineee", isSender: false),
-    ChatMessage(text: "coo coo cooolcocol", isSender: true),
+    ChatMessage(text: "Hello, I will be conducting your interview today.\nTo know you better could you give me your full name?", isSender: false),
   ];
+
+
+  Future<ChatMessage> getBotResponse(String senderId, String message) async {
+  try {
+    final response = await http.post(
+      Uri.parse('http://localhost:5005/webhooks/rest/webhook'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        "Access-Control-Allow-Headers": "Access-Control-Allow-Origin, Accept",
+      },
+      body: jsonEncode(<String, String>{
+        'sender': senderId,
+        'message': message
+      }),
+    );
+    print(response.body.toString());
+    final List liste = json.decode(response.body);
+    final Map<String, dynamic> map = liste[0];
+    ChatMessage incomingMessage = ChatMessage.fromMap(map);
+    return incomingMessage;
+
+  } on Exception catch (e) {
+    print(e);
+    throw e;
+    }
+  }
+
 
   List<ChatMessage> get getAllMessages => _chatMessages;
 
@@ -20,9 +46,11 @@ class ChatModel extends ChangeNotifier {
 
   /// Adds [chatMessage] to chat. This and [removeAll] are the only ways to modify the
   /// _chatMessages from the outside.
-  void addMessagesToChat(ChatMessage chatMessage) {
+  void addMessagesToChat(ChatMessage chatMessage) async {
     _chatMessages.add(chatMessage);
-
+    final ChatMessage response = await getBotResponse("test", chatMessage.text);
+    _chatMessages.add(response);
+    print(chatMessage.text);
     notifyListeners();
   }
 

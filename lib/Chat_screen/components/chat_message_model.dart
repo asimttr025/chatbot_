@@ -2,6 +2,13 @@ class ChatMessage {
   final String text;
   final bool isSender;
 
+  factory ChatMessage.fromMap(Map<String, dynamic> map) {
+    return ChatMessage(
+      text: map['text'] ?? '',
+      isSender: false,
+    );
+  }
+
   ChatMessage({
     required this.text,
     required this.isSender,
