@@ -1,6 +1,9 @@
 import 'package:chatbot/Chat_screen/components/chat_message_model.dart';
+import 'package:chatbot/Services/firebase_client.dart';
+import 'package:chatbot/Services/firebase_client.dart';
 import 'package:chatbot/constants.dart';
 import 'package:chatbot/models/chat_model.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
@@ -15,11 +18,11 @@ class InputField extends StatefulWidget {
 
 class _InputFieldState extends State<InputField> {
   final _controller = TextEditingController();
-
+  bool isEmpty = true;
   @override
   Widget build(BuildContext context) {
     var chat = context.read<ChatModel>();
-
+    var client = FirebaseClients();
     return Container(
       margin: EdgeInsets.all(15),
       height: 60,
@@ -30,15 +33,23 @@ class _InputFieldState extends State<InputField> {
           borderRadius: BorderRadius.circular(20)),
       child: TextField(
         controller: _controller,
-        onChanged: (value) {},
+        onChanged: (value) {
+            if(_controller.text.isNotEmpty){
+              setState(() {
+                isEmpty = false;
+              });
+            }
+        },
         decoration: InputDecoration(
           suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
-                  chat.addMessagesToChat(
+                  if(!isEmpty){
+                      chat.addMessagesToChat(
                       ChatMessage(text: _controller.text, isSender: true));
-
+                      client.setConversation();
                   _controller.clear();
+                  }
                 });
               },
               icon: Icon(

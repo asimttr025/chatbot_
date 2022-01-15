@@ -10,6 +10,7 @@ class ChatModel extends ChangeNotifier {
   List<ChatMessage> _chatMessages = [
     ChatMessage(text: "Hello, I will be conducting your interview today.\nTo know you better could you give me your full name?", isSender: false),
   ];
+  String userMail = "";
 
 
   Future<ChatMessage> getBotResponse(String senderId, String message) async {
@@ -37,7 +38,6 @@ class ChatModel extends ChangeNotifier {
     }
   }
 
-
   List<ChatMessage> get getAllMessages => _chatMessages;
 
   /// An unmodifiable view of the items in the cart.
@@ -51,6 +51,13 @@ class ChatModel extends ChangeNotifier {
     final ChatMessage response = await getBotResponse("test", chatMessage.text);
     _chatMessages.add(response);
     print(chatMessage.text);
+    notifyListeners();
+  }
+
+  String get getUser => userMail;
+
+  void addMailtoUser(String mail) async {
+    userMail = mail;
     notifyListeners();
   }
 

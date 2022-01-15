@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:chatbot/Chat_screen/chat_screen.dart';
+import 'package:chatbot/models/chat_model.dart';
 import 'package:chatbot/responsive.dart';
 //import 'package:chatbot_project/ChatScreen/chat_screen.dart';
 //import 'package:chatbot_project/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../constants.dart';
@@ -62,9 +64,10 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  
   @override
   Widget build(BuildContext context) {
+    var chat = context.read<ChatModel>();
     return Container(
       width: double.infinity,
       height: 700,
@@ -111,29 +114,6 @@ class _MainViewState extends State<MainView> {
                       ],
                     ),
                     SizedBox(
-                      height: 20,
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Password",
-                          style: Theme.of(context).textTheme.subtitle1,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          // style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                        ),
-                        TextFormField(
-                          controller: passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                              hintText: "Insert Your Password",
-                              prefixIcon: Icon(Icons.lock)),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
                       height: 30.0,
                     ),
                     Container(
@@ -146,6 +126,7 @@ class _MainViewState extends State<MainView> {
                                 primary: secondaryColor),
                             onPressed: () {
                               //Email And Password Controller
+                              chat.addMailtoUser(emailController.text);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

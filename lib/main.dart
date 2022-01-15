@@ -1,12 +1,16 @@
 import 'package:chatbot/Login_screen/login_screen.dart';
 import 'package:chatbot/models/chat_model.dart';
+import 'package:firebase_core/firebase_core.dart';
 //import 'package:chatbot_project/LoginScreen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'constants.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: FirebaseOptions(apiKey: "AIzaSyCjxNDmwGBfIUCbCBu4IGmMK3y6Q6zpcqg", appId: "1:887176028396:web:326d5482b9702bee9a05c9", messagingSenderId: "887176028396", projectId: "rasa-cb2f3"),
+  );
   runApp(
     MultiProvider(
       providers: [
