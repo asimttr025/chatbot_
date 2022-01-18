@@ -48,7 +48,7 @@ class ChatModel extends ChangeNotifier {
   /// _chatMessages from the outside.
   void addMessagesToChat(ChatMessage chatMessage) async {
     _chatMessages.add(chatMessage);
-    final ChatMessage response = await getBotResponse("test", chatMessage.text);
+    final ChatMessage response = await getBotResponse(userMail, chatMessage.text);
     _chatMessages.add(response);
     print(chatMessage.text);
     notifyListeners();

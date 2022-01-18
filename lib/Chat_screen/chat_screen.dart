@@ -1,6 +1,8 @@
 import 'package:chatbot/Chat_screen/components/chat_message_model.dart';
 import 'package:chatbot/Chat_screen/components/input_field.dart';
 import 'package:chatbot/Chat_screen/components/message.dart';
+import 'package:chatbot/Login_screen/login_screen.dart';
+import 'package:chatbot/Services/firebase_client.dart';
 import 'package:chatbot/constants.dart';
 import 'package:chatbot/models/chat_model.dart';
 import 'package:chatbot/responsive.dart';
@@ -45,6 +47,7 @@ class _CardViewState extends State<CardView> {
 
   @override
   Widget build(BuildContext context) {
+    var client = FirebaseClients();
     var chat = context.watch<ChatModel>();
     return Card(
       color: Colors.green.shade300,
@@ -60,7 +63,18 @@ class _CardViewState extends State<CardView> {
                 child: ListView.builder(
                     itemCount: chat.getAllMessages.length,
                     itemBuilder: (context, index) {
-                      return Message(
+                      return chat.getAllMessages.last.text == "Thank you for all the information we will be in touch soon!" ? Column(
+                        children: [
+                          Message(
+                            message: chat.getAllMessages[index],
+                          ),
+                          index == chat.getAllMessages.length - 1 ? Message(message: ChatMessage(isSender: false, text: "Click to continue")) : SizedBox(),
+                          index == chat.getAllMessages.length - 1 ? ElevatedButton(onPressed: (){client.setConversation(chat.getAllMessages, chat.userMail);
+                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                          LoginScreen()), (Route<dynamic> route) => false);
+                          }, child: Text("data")) : SizedBox(),
+                        ],
+                      ): Message(
                         message: chat.getAllMessages[index],
                       );
                     }),

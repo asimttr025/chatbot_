@@ -47,7 +47,7 @@ class _InputFieldState extends State<InputField> {
                   if(!isEmpty){
                       chat.addMessagesToChat(
                       ChatMessage(text: _controller.text, isSender: true));
-                      client.setConversation();
+                      //client.setConversation(chat.getAllMessages, chat.userMail);
                   _controller.clear();
                   }
                 });
