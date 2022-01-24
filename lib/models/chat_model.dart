@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class ChatModel extends ChangeNotifier {
   /// Internal, private state of the cart.
   List<ChatMessage> _chatMessages = [
-    ChatMessage(text: "Hello, I will be conducting your interview today.\nTo know you better could you give me your full name?", isSender: false),
+    ChatMessage(text: "Merhabalar, Bugün mülakatınızı ben gerçekleştireceğim.\nSizi daha iyi tanımak ve size nasıl hitap edeceğimi belirlemek için adınızı söyler misiniz?", isSender: false),
   ];
   String userMail = "";
 

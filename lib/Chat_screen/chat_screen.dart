@@ -63,16 +63,16 @@ class _CardViewState extends State<CardView> {
                 child: ListView.builder(
                     itemCount: chat.getAllMessages.length,
                     itemBuilder: (context, index) {
-                      return chat.getAllMessages.last.text == "Thank you for all the information we will be in touch soon!" ? Column(
+                      return chat.getAllMessages.last.text == "Bütün cevaplar için teşekkürler, mülakatınız değerlendirildikten sonra en yakın zamanda sizinle iletişime geçilecek!" ? Column(
                         children: [
                           Message(
                             message: chat.getAllMessages[index],
                           ),
-                          index == chat.getAllMessages.length - 1 ? Message(message: ChatMessage(isSender: false, text: "Click to continue")) : SizedBox(),
+                          index == chat.getAllMessages.length - 1 ? Message(message: ChatMessage(isSender: false, text: "Devam etmek için tıklayınız")) : SizedBox(),
                           index == chat.getAllMessages.length - 1 ? ElevatedButton(onPressed: (){client.setConversation(chat.getAllMessages, chat.userMail);
                           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                           LoginScreen()), (Route<dynamic> route) => false);
-                          }, child: Text("data")) : SizedBox(),
+                          }, child: Text("Buraya Tıklayın!!")) : SizedBox(),
                         ],
                       ): Message(
                         message: chat.getAllMessages[index],
