@@ -9,7 +9,11 @@ import 'constants.dart';
 
 void main() async {
   await Firebase.initializeApp(
-    options: FirebaseOptions(apiKey: "AIzaSyCjxNDmwGBfIUCbCBu4IGmMK3y6Q6zpcqg", appId: "1:887176028396:web:326d5482b9702bee9a05c9", messagingSenderId: "887176028396", projectId: "rasa-cb2f3"),
+    options: FirebaseOptions(
+        apiKey: "AIzaSyB5lGyxcI_Qda9O1CCA5YoWovfTt58urNg",
+        appId: "1:312297302755:web:a07cc942c0b7c7a5ad73d6",
+        messagingSenderId: "312297302755",
+        projectId: "dentistapp-ce4fc"),
   );
   runApp(
     MultiProvider(

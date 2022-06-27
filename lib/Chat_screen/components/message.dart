@@ -19,14 +19,23 @@ class Message extends StatelessWidget {
               child: CircleAvatar(
                 radius: 20,
                 backgroundImage: AssetImage(
-                  "assets/icons/chatbotx.jpg",
+                  "images/sad_tooth.jpg",
                 ),
               ))
         },
         SizedBox(
           width: defaultPadding / 2,
         ),
-        TextMessage(message: message)
+        Container(
+            margin: const EdgeInsets.only(top: defaultPadding / 2),
+            padding: const EdgeInsets.symmetric(
+                horizontal: defaultPadding / 2, vertical: defaultPadding / 2),
+            decoration: BoxDecoration(
+                color: message.isSender ? primaryColor : secondColor,
+                borderRadius: BorderRadius.circular(20)),
+            child: Text(
+              message.text,
+            )),
       ],
     );
   }

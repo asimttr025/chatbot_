@@ -34,21 +34,21 @@ class _InputFieldState extends State<InputField> {
       child: TextField(
         controller: _controller,
         onChanged: (value) {
-            if(_controller.text.isNotEmpty){
-              setState(() {
-                isEmpty = false;
-              });
-            }
+          if (_controller.text.isNotEmpty) {
+            setState(() {
+              isEmpty = false;
+            });
+          }
         },
         decoration: InputDecoration(
           suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
-                  if(!isEmpty){
-                      chat.addMessagesToChat(
-                      ChatMessage(text: _controller.text, isSender: true));
-                      //client.setConversation(chat.getAllMessages, chat.userMail);
-                  _controller.clear();
+                  if (!isEmpty) {
+                    chat.addMessagesToChat(
+                        ChatMessage(text: _controller.text, isSender: true));
+                    //client.setConversation(chat.getAllMessages, chat.userMail);
+                    _controller.clear();
                   }
                 });
               },
@@ -61,7 +61,7 @@ class _InputFieldState extends State<InputField> {
               fontStyle: FontStyle.italic,
               fontSize: 15,
               color: Colors.grey.shade300),
-          hintText: "Type Here...",
+          hintText: "Buraya yazınız...",
           border: InputBorder.none,
         ),
       ),

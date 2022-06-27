@@ -8,33 +8,30 @@ import 'package:http/http.dart' as http;
 class ChatModel extends ChangeNotifier {
   /// Internal, private state of the cart.
   List<ChatMessage> _chatMessages = [
-    ChatMessage(text: "Merhabalar, Bugün mülakatınızı ben gerçekleştireceğim.\nSizi daha iyi tanımak ve size nasıl hitap edeceğimi belirlemek için adınızı söyler misiniz?", isSender: false),
+    ChatMessage(
+        text: "Merhabalar size nasıl yardımcı olabilirim?", isSender: false),
   ];
   String userMail = "";
 
-
   Future<ChatMessage> getBotResponse(String senderId, String message) async {
-  try {
-    final response = await http.post(
-      Uri.parse('http://localhost:5005/webhooks/rest/webhook'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        "Access-Control-Allow-Headers": "Access-Control-Allow-Origin, Accept",
-      },
-      body: jsonEncode(<String, String>{
-        'sender': senderId,
-        'message': message
-      }),
-    );
-    print(response.body.toString());
-    final List liste = json.decode(response.body);
-    final Map<String, dynamic> map = liste[0];
-    ChatMessage incomingMessage = ChatMessage.fromMap(map);
-    return incomingMessage;
-
-  } on Exception catch (e) {
-    print(e);
-    throw e;
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:5005/webhooks/rest/webhook'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Access-Control-Allow-Headers": "Access-Control-Allow-Origin, Accept",
+        },
+        body: jsonEncode(
+            <String, String>{'sender': senderId, 'message': message}),
+      );
+      print(response.body.toString());
+      final List liste = json.decode(response.body);
+      final Map<String, dynamic> map = liste[0];
+      ChatMessage incomingMessage = ChatMessage.fromMap(map);
+      return incomingMessage;
+    } on Exception catch (e) {
+      print(e);
+      throw e;
     }
   }
 
@@ -48,7 +45,8 @@ class ChatModel extends ChangeNotifier {
   /// _chatMessages from the outside.
   void addMessagesToChat(ChatMessage chatMessage) async {
     _chatMessages.add(chatMessage);
-    final ChatMessage response = await getBotResponse(userMail, chatMessage.text);
+    final ChatMessage response =
+        await getBotResponse(userMail, chatMessage.text);
     _chatMessages.add(response);
     print(chatMessage.text);
     notifyListeners();

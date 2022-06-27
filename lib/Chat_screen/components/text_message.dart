@@ -17,7 +17,7 @@ class TextMessage extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             horizontal: defaultPadding / 2, vertical: defaultPadding / 2),
         decoration: BoxDecoration(
-            color: message.isSender ? primaryColor : bgColor,
+            color: message.isSender ? primaryColor : secondColor,
             borderRadius: BorderRadius.circular(20)),
         child: Text(
           message.text,

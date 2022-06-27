@@ -22,7 +22,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       //appBar: AppBar(),
       backgroundColor: Colors.grey.shade300,
-      body: Container(child: Center(child: getMyCardView(context))),
+      body: const Center(child: CardView(horizontal: 100, vertical: 25)),
     );
   }
 }
@@ -50,7 +50,7 @@ class _CardViewState extends State<CardView> {
     var client = FirebaseClients();
     var chat = context.watch<ChatModel>();
     return Card(
-      color: Colors.green.shade300,
+      color: backgroundColor,
       elevation: 5,
       margin: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
@@ -63,20 +63,42 @@ class _CardViewState extends State<CardView> {
                 child: ListView.builder(
                     itemCount: chat.getAllMessages.length,
                     itemBuilder: (context, index) {
-                      return chat.getAllMessages.last.text == "Bütün cevaplar için teşekkürler, mülakatınız değerlendirildikten sonra en yakın zamanda sizinle iletişime geçilecek!" ? Column(
-                        children: [
-                          Message(
-                            message: chat.getAllMessages[index],
-                          ),
-                          index == chat.getAllMessages.length - 1 ? Message(message: ChatMessage(isSender: false, text: "Devam etmek için tıklayınız")) : SizedBox(),
-                          index == chat.getAllMessages.length - 1 ? ElevatedButton(onPressed: (){client.setConversation(chat.getAllMessages, chat.userMail);
-                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                          LoginScreen()), (Route<dynamic> route) => false);
-                          }, child: Text("Buraya Tıklayın!!")) : SizedBox(),
-                        ],
-                      ): Message(
-                        message: chat.getAllMessages[index],
-                      );
+                      return chat.getAllMessages.last.text ==
+                              "İyi günler dilerim."
+                          ? Column(
+                              children: [
+                                Message(
+                                  message: chat.getAllMessages[index],
+                                ),
+                                index == chat.getAllMessages.length - 1
+                                    ? Message(
+                                        message: ChatMessage(
+                                            isSender: false,
+                                            text:
+                                                "Devam etmek için tıklayınız"))
+                                    : SizedBox(),
+                                index == chat.getAllMessages.length - 1
+                                    ? ElevatedButton(
+                                        onPressed: () {
+                                          client.setConversation(
+                                              chat.getAllMessages,
+                                              chat.userMail);
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              LoginScreen()),
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                        },
+                                        child: Text("Buraya Tıklayın!!"))
+                                    : SizedBox(),
+                              ],
+                            )
+                          : Message(
+                              message: chat.getAllMessages[index],
+                            );
                     }),
               ),
             ),
